@@ -1,0 +1,237 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!-- Include Font Awesome CSS -->
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+	<title>React Coder</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+		integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}" />
+</head>
+
+<body>
+	<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="breadcrumb_main">
+		<ol class="breadcrumb">			
+			<li class="nav_app_image">
+				<img src="../static/download.png" alt="Profile Image">
+			</li>
+			<li class="breadcrumb-item"><a href="#">Home</a></li>
+			<li class="breadcrumb-item "><a href="#">React_Coder</a></li>
+		</ol>
+	</nav>
+	<hr>
+	<div class="card-header msg_head">
+		<div class="d-flex bd-highlight">
+			<div class="img_cont">
+				<img src="../static/Wrapper@3x.png" class="rounded-circle user_img">
+				<span class="online_icon"></span>
+			</div>
+			<div class="user_info">
+				<h3>ChatBot</h3>
+				<button onclick="editorbtn()" type="button" class="btn btn-outline-warning editor_btn">Edit Copied Code</button>
+				<button onclick="openForm()" type="button" class="btn btn-outline-warning form_btn">Create JSON</button>
+				<button type="button" class="btn btn-outline-warning react_doc"><a href="https://react.dev/learn" target="_blank">React Docs</a></button>
+				<button type="button" id="show_table" class="btn btn-outline-warning templ_show" data-bs-toggle="modal" data-bs-target="#Modal">Sample JSON</button>
+				<p>You Can Now Work without learning Codes!!</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-8 col-xl-12 chat">
+		<div class="card">
+			<div id="messageFormeight" class="card-body msg_card_body">
+
+			</div>
+			<div class="card-footer">
+				<form id="messageArea" class="input-group">
+					<input type="text" id="text" name="msg" placeholder="Type your message..." autocomplete="off"
+						class="form-control type_msg" required />
+					<div class="input-group-append">
+						<button type="submit" id="send" class="input-group-text send_btn"><i
+								class="fas fa-location-arrow"></i></button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-scrollable" style="min-width: 80%;" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="ModalLabel">Sample JSON</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<h5>JSON Schema:</h5>
+							<p id="Sample JSON"></p>
+							<pre>
+{
+    "componentType": "xyz",
+    "title": "xyz",
+    "fields": [
+        {
+            "type": "xyz",
+            "label": "xyz",
+            "name": "xyz",
+            "placeholder": "xyz",
+            "required": xyz,
+            "abc": "xyz"
+            ... : ...
+        },
+        {
+            ...
+        },
+        ...
+    ],
+    "submitButtonLabel": "xyz"
+}
+</pre>
+<h5>JSON Example :</h5>
+<p id="Sample JSON"></p>
+<pre>
+{
+    "componentType": "Form",
+    "title": "User Registration Form",
+    "fields": [
+        {
+            "type": "text",
+            "label": "First Name",
+            "name": "firstName",
+            "placeholder": "Enter your first name",
+            "required": true
+        },
+        {
+            "type": "text",
+            "label": "Last Name",
+            "name": "lastName",
+            "placeholder": "Enter your last name",
+            "required": true
+        },
+        {
+            "type": "email",
+            "label": "Email",
+            "name": "email",
+            "placeholder": "Enter your email address",
+            "required": true
+        },
+        {
+            "type": "password",
+            "label": "Password",
+            "name": "password",
+            "placeholder": "Enter your password",
+            "required": true
+        },
+        {
+            "type": "password",
+            "label": "Confirm Password",
+            "name": "confirmPassword",
+            "placeholder": "Confirm your password",
+            "required": true
+        }
+    ],
+    "submitButtonLabel": "Register"
+}
+    </pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<script>
+		
+		function escapeHtml(html) {
+	        var text = document.createTextNode(html);
+	        var div = document.createElement('div');
+	        div.appendChild(text);
+	        return div.innerHTML;
+    	}
+		$(document).ready(function () {
+			function copyToClipboard(responses) {
+	        // Create a new textarea element to hold the text to be copied
+	        var textarea = document.createElement('textarea');
+	        textarea.value = responses;
+	        document.body.appendChild(textarea);
+
+	        // Select the text in the textarea
+	        textarea.select();
+	        document.execCommand('copy');
+
+	        // Remove the textarea element
+	        document.body.removeChild(textarea);
+
+	        // Provide user feedback
+	        alert("Copied to clipboard: \n" + responses);
+	    }
+			$("#messageArea").on("submit", function (event) {
+				const date = new Date();
+				const hour = date.getHours();
+				const minute = date.getMinutes();
+				const str_time = hour + ":" + minute;
+				var rawText = $("#text").val();
+
+				var userHtml = '<div class="d-flex justify-content-end mb-4"><div class="msg_cotainer_send">' + rawText + '<span class="msg_time_send">' + str_time + '</span></div><div class="img_cont_msg"><img src="https://i.ibb.co/d5b84Xw/Untitled-design.png" class="rounded-circle user_img_msg"></div></div>';
+
+				$("#text").val("");
+				$("#messageFormeight").append(userHtml);
+
+				$.ajax({
+					data: {
+						msg: rawText,
+					},
+					type: "POST",
+					url: "/get",
+				}).done(function (responses) {
+
+					console.log(responses)
+					var botHtml = '<div class="d-flex justify-content-start mb-4">';
+					botHtml += '<div class="img_cont_msg"><img src="../static/Wrapper@3x.png" class="rounded-circle user_img_msg"></div>';
+					botHtml += '<div class="msg_cotainer">';
+					if (responses.length > 0) {
+						botHtml += '<pre><code>' + escapeHtml(responses) + '</pre></code>';
+					}
+					else {
+						botHtml += '<p>No single responses yet.</p>';
+					}
+					botHtml += '<span class="msg_time">' + str_time + '</span>';
+					botHtml += '<button class="copy-button btn btn-outline-warning"><i class="fas fa-copy"></i></button>';
+					botHtml += '</div></div>';
+
+					$("#messageFormeight").append($.parseHTML(botHtml));
+					$(".copy-button").on("click", function () {
+                copyToClipboard(responses);
+            });
+				});
+				event.preventDefault();
+			});
+		});
+		function openForm() {
+            // Navigate to the new HTML page
+            window.location.href = "/form";
+        }
+        function editorbtn() {
+            // Navigate to the new HTML page
+            // window.location.href = "/editor";
+             window.open("/editor", '_blank');
+        }
+
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+
+</body>
+
+</html>

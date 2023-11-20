@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        #fieldContainer {
+            display: list-item;
+            align-items: center;
+        }
+
+        #fieldContainer input {
+            flex: 1;
+            margin-right: 5px;
+        }
+
+        #fieldContainer button {
+            padding: 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #fieldContainer button:hover {
+            background-color: #45a049;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h3 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>JSON Form</h2>
+
+    <form id="jsonForm">
+        <label for="componentType">componentType :</label>
+        <input type="text" id="componentType" name="componentType" required>
+
+        <label for="title">title :</label>
+        <input type="text" id="title" name="title" required>
+
+<!--         <label>Email:</label>
+        <div id="fieldContainer">
+            <input type="email" name="email" required>
+        </div> -->
+
+        <label for="fields">fields :</label>
+        <div id="fieldContainer">
+            <textarea id="fields" name="fields" rows="4" required></textarea>
+        </div>
+        <button type="button" onclick="addField()">Add field</button>
+
+        <button type="button" onclick="generateJSON()">Generate JSON</button>
+    </form>
+
+    <h3>Generated JSON:</h3>
+    <pre id="jsonResult"></pre>
+
+    <script>
+        function addField() {
+            var fieldContainer = document.getElementById('fieldContainer');
+            
+            // Create a line break element (<br>) before adding a new input
+            var lineBreak = document.createElement('br');
+            fieldContainer.appendChild(lineBreak);
+
+            var newFieldTextArea = document.createElement('textarea');
+            newFieldTextArea.id = 'fields';
+            newFieldTextArea.name = 'fields';
+            newFieldTextArea.rows = "4";
+            newFieldTextArea.required = true;
+            fieldContainer.appendChild(newFieldTextArea);
+        }
+
+        function generateJSON() {
+            var fieldsInputs = document.getElementsByName('fields');
+            var fields = [];
+            for (var i = 0; i < fieldsInputs.length; i++) {
+                fields.push(fieldsInputs[i].value);
+            }
+
+            var formData = {
+                componentType: document.getElementById('componentType').value,
+                title: document.getElementById('title').value,
+                fields: fields,
+                // address: document.getElementById('address').value
+            };
+
+            var jsonString = JSON.stringify(formData, null, 2);
+            jsonString = jsonString.replace(/\\n/g, '\n');
+            jsonString = jsonString.replace(/\\"/g, '\"');
+            document.getElementById('jsonResult').innerText = jsonString;
+        }
+    </script>
+
+</body>
+</html>
